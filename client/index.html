@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Drawing Canvas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with user info and controls -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Collaborative Drawing Canvas</h1>
+                <div class="header-controls">
+                    <div class="connection-status">
+                        <span class="status-indicator" id="statusIndicator"></span>
+                        <span id="connectionStatus">Connecting...</span>
+                    </div>
+                    <div class="user-info">
+                        <span>Room:</span>
+                        <span id="roomId">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <div class="main-content">
+            <!-- Left sidebar with tools -->
+            <aside class="toolbar">
+                <h3>Tools</h3>
+
+                <!-- Drawing Mode Selection -->
+                <div class="tool-section">
+                    <label>Mode:</label>
+                    <button class="tool-btn active" data-tool="brush" title="Brush">
+                        <span>✏️</span> Brush
+                    </button>
+                    <button class="tool-btn" data-tool="eraser" title="Eraser">
+                        <span>🧹</span> Eraser
+                    </button>
+                </div>
+
+                <!-- Color Selection -->
+                <div class="tool-section">
+                    <label>Color:</label>
+                    <div class="color-palette">
+                        <input type="color" id="colorPicker" value="#000000" title="Pick custom color">
+                        <div class="preset-colors">
+                            <button class="color-btn" style="background-color: #000000;" data-color="#000000" title="Black"></button>
+                            <button class="color-btn" style="background-color: #FF0000;" data-color="#FF0000" title="Red"></button>
+                            <button class="color-btn" style="background-color: #00FF00;" data-color="#00FF00" title="Green"></button>
+                            <button class="color-btn" style="background-color: #0000FF;" data-color="#0000FF" title="Blue"></button>
+                            <button class="color-btn" style="background-color: #FFFF00;" data-color="#FFFF00;" title="Yellow"></button>
+                            <button class="color-btn" style="background-color: #FF00FF;" data-color="#FF00FF" title="Magenta"></button>
+                            <button class="color-btn" style="background-color: #00FFFF;" data-color="#00FFFF" title="Cyan"></button>
+                            <button class="color-btn" style="background-color: #FFA500;" data-color="#FFA500" title="Orange"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stroke Width -->
+                <div class="tool-section">
+                    <label>Size: <span id="sizeDisplay">5</span>px</label>
+                    <input type="range" id="strokeWidth" min="1" max="50" value="5" class="slider">
+                </div>
+
+                <!-- Undo/Redo -->
+                <div class="tool-section">
+                    <button id="undoBtn" class="tool-btn" title="Undo (Ctrl+Z)">↶ Undo</button>
+                    <button id="redoBtn" class="tool-btn" title="Redo (Ctrl+Y)">↷ Redo</button>
+                </div>
+
+                <!-- Clear Canvas -->
+                <div class="tool-section">
+                    <button id="clearBtn" class="tool-btn danger" title="Clear entire canvas">🗑️ Clear</button>
+                </div>
+
+                <!-- Users List -->
+                <div class="users-section">
+                    <h3>Users Online</h3>
+                    <ul id="usersList" class="users-list">
+                        <li>Waiting for connection...</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Canvas area -->
+            <div class="canvas-wrapper">
+                <div class="canvas-container">
+                    <canvas id="drawingCanvas" width="1200" height="600"></canvas>
+                    <div id="cursorLayer" class="cursor-layer"></div>
+                </div>
+                <div class="canvas-info">
+                    <span id="latency">Latency: --ms</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="canvas.js"></script>
+    <script src="websocket.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
